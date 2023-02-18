@@ -44,12 +44,12 @@ public class MainServiceImpl implements MainService {
         var sendMessage = new SendMessage();
         System.out.println(appUser.getId());
         System.out.println(textMessage.getChatId().toString());
-        sendMessage.setChatId(appUser.getTelegramUserId());
-        //sendMessage.setChatId(textMessage.getChatId().toString());
-        sendMessage.setText(appUser.getFirstName() + " "
-                + appUser.getLastName() + ", "
-                + "Hello from NODE");
-        producerService.producerAnswer(sendMessage);
+//        sendMessage.setChatId(appUser.getTelegramUserId());
+//        //sendMessage.setChatId(textMessage.getChatId().toString());
+//        sendMessage.setText(appUser.getFirstName() + " "
+//                + appUser.getLastName() + ", "
+//                + "Hello from NODE");
+//        producerService.producerAnswer(sendMessage);
 
     }
 

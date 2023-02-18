@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
 @Component
 @Log4j
 public class TelegramBot extends TelegramLongPollingBot {
-    @Value("${bot.name}")
+    @Value(value = "${bot.name}")
     private String botName;
     @Value("${bot.token}")
     private String botToken;
@@ -51,15 +52,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         System.out.println("UPD received");
-       // var originalMessage = update.getMessage();
-//        var response = new SendMessage();
-//        response.setChatId(originalMessage.getChatId().toString());
-//        response.setText("лошара");
-//        System.out.println(originalMessage.getText());
-//        log.debug(originalMessage.getText());
-//        sendAnswerMessage(response);
         updateController.processUpdate(update);
-
     }
 
     public void sendAnswerMessage(SendMessage message) {
@@ -71,5 +64,13 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
         }
     }
-
+    public void sendEditMessage(EditMessageText editMessageText) {
+        if (editMessageText != null){
+            try{
+                execute(editMessageText);
+            } catch (TelegramApiException e){
+                log.error(e);
+            }
+        }
+    }
 }
